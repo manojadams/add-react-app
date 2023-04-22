@@ -1,29 +1,28 @@
 #!/usr/bin/env node
-const {execSync} = require('child_process');
-const runCommand = command => {
-    try {
-        execSync(`${command}`, {studio: 'inherit'});
-    } catch(error) {
-        console.error(`Failed to run command ${command} with error`, error);
-        return false;
-    }
-    return true;
+const {REPO_TEMPLATE} = require("./templates");
+const {getRepoName, runCommand, validate}  = require("./utils");
+
+const repoName = getRepoName(process.argv);
+if (!validate(repoName)) {
+    console.log("unknown option");
+    return;
 }
-const gitCheckoutCommand = `git clone https://github.com/manojgetwealthy/react-templates.git`;
-const installCommand = `cd react-templates && npm install`;
+const gitCheckoutCommand = `git clone ${REPO_TEMPLATE[repoName]}`;
+const installCommand = `cd ${repoName} && npm install`;
 
-console.log('Cloning react templates');
-
+// Step 1: Checkout
+console.log(`Cloning ${repoName}`);
 const checkoutResponse = runCommand(gitCheckoutCommand);
 if (!checkoutResponse) {
     process.exit(-1); 
 }
 
-console.log('Installing dependencies for react-templates');
+// Step 2: Install dependencies
+console.log(`Installing dependencies for ${repoName}`);
 const installCommandResponse = runCommand(installCommand);
 if (!installCommandResponse) {
     process.exit(-1);
 }
 
-console.log('Setup completed. Go into the directory(using cd <dir_name>) of react-templates and run command `npm start`')
+console.log(`Setup completed. Go into the directory(using cd <dir_name>) of ${repoName} and run command npm start`)
 
