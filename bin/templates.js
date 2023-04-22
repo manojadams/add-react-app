@@ -1,4 +1,8 @@
 
+const REACT_TEMPLATES = [
+    "evergreen"
+];
+
 const REPO_NAME = {
     DEFAULT: "react-templates",
     REACT_TEMPLATES: "react-templates",
@@ -13,3 +17,4 @@ const REPO_TEMPLATE = {
 
 exports.REPO_NAME = REPO_NAME;
 exports.REPO_TEMPLATE = REPO_TEMPLATE;
+exports.REACT_TEMPLATES = REACT_TEMPLATES;
