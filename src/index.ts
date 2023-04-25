@@ -1,1 +1,1 @@
-console.log("hi");
+console.log("Please refer bin directory for cli apps");
